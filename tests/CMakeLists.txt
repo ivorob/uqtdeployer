@@ -7,6 +7,9 @@ SET (SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 SET (INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 SET (SOURCES 
         ${SRC_DIR}/tests.cpp
+        ${SRC_DIR}/ElfAnalyzerTest.cpp
+        # Main sources
+        ${MAIN_SRC_DIR}/ElfAnalyzer.cpp
     )
 
 SET (HEADERS
