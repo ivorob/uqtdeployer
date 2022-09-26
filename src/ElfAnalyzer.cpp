@@ -4,7 +4,7 @@
 ElfAnalyzer::ElfAnalyzer(std::istream& input) {
     ElfHeader header;
     if (!input.read(reinterpret_cast<char*>(&header), sizeof(header))) {
-        throw std::runtime_error("Invalid elf format");
+        throw std::runtime_error("Invalid ELF format");
     }
 
     invalidSignatureCauseException(header.signature);
@@ -14,7 +14,7 @@ ElfAnalyzer::ElfAnalyzer(std::istream& input) {
 void ElfAnalyzer::invalidSignatureCauseException(uint8_t* signature) {
     if (signature[0] != ELF_SIGNATURE_BYTE0 || signature[1] != ELF_SIGNATURE_BYTE1 ||
         signature[2] != ELF_SIGNATURE_BYTE2 || signature[3] != ELF_SIGNATURE_BYTE3) {
-        throw std::runtime_error("Invalid signature");
+        throw std::runtime_error("Invalid ELF signature");
     }
 }
 

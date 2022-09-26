@@ -22,10 +22,32 @@ TEST(ElfAnalyzerTest, cannot_open_invalid_elf_file) {
 
     // Assert
     ASSERT_TRUE(hasException);
-    ASSERT_EQ("Invalid elf format", exception);
+    ASSERT_EQ("Invalid ELF format", exception);
 }
 
-TEST(ElfAnalyzerTest, invalid_machine_class_cause_exception) {
+TEST(ElfAnalyzerTest, invalid_signature_causes_exception) {
+    // Arrange
+    std::string elfFile("test file");
+    std::istringstream input(elfFile);
+
+    // Act
+    std::string exception;
+    bool hasException = [&input, &exception]() -> bool {
+        try {
+            ElfAnalyzer elfAnalyzer(input);
+            return false;
+        } catch (const std::exception& e) {
+            exception = e.what();
+            return true;
+        }
+    }();
+
+    // Assert
+    ASSERT_TRUE(hasException);
+    ASSERT_EQ("Invalid ELF signature", exception);
+}
+
+TEST(ElfAnalyzerTest, invalid_machine_class_causes_exception) {
     // Arrange
     std::string elfFile;
     elfFile.push_back(ELF_SIGNATURE_BYTE0);
